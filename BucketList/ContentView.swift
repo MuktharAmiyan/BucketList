@@ -27,7 +27,15 @@ struct ContentView: View {
         VStack{
             Map{
                 ForEach(locations){ location in
-                    Marker(location.name, coordinate: location.coordinate)
+                    Annotation(location.name, coordinate: location.coordinate){
+                        Text(location.name)
+                            .font(.title)
+                            .padding()
+                            .background(.blue.gradient)
+                            .foregroundStyle(.white)
+                            .clipShape(Capsule())
+                    }
+                    .annotationTitles(.hidden)
                     
                 }
             }
