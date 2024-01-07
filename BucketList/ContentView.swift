@@ -9,30 +9,23 @@
 import SwiftUI
 
 
-struct User: Comparable, Identifiable {
-    
-    let id = UUID()
-    var firstName : String
-    var lastName  : String
-    
-    static func < (lhs : User,rhs : User)  -> Bool {
-        lhs.firstName < rhs.firstName
-    }
-}
+ 
  
 struct ContentView: View {
-    let users = [
-    User(firstName: "Mukthar", lastName: "Amiyan"),
-    User(firstName: "Mohammed", lastName: "Danish"),
-    User(firstName: "Mohammed", lastName: "Shibili"),
-    User(firstName: "Mohammed", lastName: "Jasin"),
-    User(firstName: "Dilshad", lastName: "Badusha")
-    ].sorted()
+     
     
     var body: some View {
-        List(users){ user in
-            Text(user.firstName + " " + user.lastName)
+        Button("Read and write"){
+            let data = Data("Test Message".utf8)
+            let url = URL.documentsDirectory.appending(path: "message.txt")
             
+            do {
+                try data.write(to: url, options:[.atomic, .completeFileProtection])
+                let input = try String(contentsOf: url)
+                print(input)
+            } catch {
+                print(error.localizedDescription)
+            }
         }
     }
     
